@@ -1,0 +1,6 @@
+.orchestrator/
+roc-free-1.cmd
+.claude/settings.local.json
+build/
+out/
+.vs/
