@@ -37,6 +37,7 @@ SFML 3.0 / box2d 3.x / imgui[docking-experimental] / imgui-sfml / imnodes / nloh
 | II. 命名規則 | `.clang-tidy` readability-identifier-naming、`sprout_lint` を CI 必須 | PASS | PASS |
 | III. 責務分割・依存方向 | モジュール DAG（下図）を CMake ターゲットで強制。逆依存はリンクエラーになる | PASS | PASS |
 | IV. テスト必須 | 全モジュールにテストターゲット。決定性・往復・Undo・Prefab 上書きの専用スイート | PASS | PASS |
+| VI. 製品品質 | ASan プリセット・耐久テスト（8h）・完了の定義を CI/リリース条件に組込み | PASS | PASS |
 | V. ビルド再現性 | `CMakePresets.json`（vs2022 / vs2026 / ninja-msvc / ci）、vcpkg baseline 固定 | PASS | PASS |
 
 **例外（Complexity Tracking へ記録）**: 公開マクロ `SPROUT_BEHAVIOR` / `SPROUT_PROPERTY` / `SPROUT_GAME_MODULE` の 3 つ（constitution II は 1 つのみ許可 → 改訂提案）。
@@ -181,4 +182,4 @@ tests/
 |---|---|---|
 | 公開マクロ 3 種（constitution は 1 種） | C++20 に静的リフレクションが無く、型登録・プロパティ宣言・モジュール入口を 1 行で書かせるため | 手書き登録は学生の記述量が 3〜5 倍、コード生成ツールはビルド手順が増え 1 年生には重い |
 | ランタイムを DLL 化 | エディタとゲームモジュールが同一エンジン状態を共有するため | 静的リンクでは DLL ごとにエンジン状態が複製され、ホットリロード不可 |
-| imgui-test-engine の採用 | エディタ E2E テストの必須化（FR-902） | 手動テストは回帰検出不能 |
+| imgui-test-engine の採用（教育用途のためライセンス問題なし・利用者確認済み） | エディタ E2E テストの必須化（FR-902） | 手動テストは回帰検出不能 |

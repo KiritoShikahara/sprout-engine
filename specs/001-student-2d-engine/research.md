@@ -75,6 +75,7 @@
 - **Alternatives**: MSBuild ソリューション直管理（再現性が低い）
 
 ## R17. テスト
+- **License**: ImGui Test Engine は非商用/教育利用は無償。本プロジェクトは下級生向け教育用のため問題なし（利用者確認済み 2026-10-21）
 - **Decision**: GoogleTest（ロジック）、ImGui Test Engine（エディタ操作）、決定性テストは同一入力列で物理状態ハッシュ比較、往復テストは全アセット型について Save→Load→Save のバイト一致
 - **Alternatives**: 手動 QA のみ
 
