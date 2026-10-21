@@ -1,0 +1,14 @@
+{
+  "name": "imgui-test-engine",
+  "version-string": "16b6efb",
+  "description": "Test engine for Dear ImGui",
+  "homepage": "https://github.com/ocornut/imgui_test_engine",
+  "license": null,
+  "dependencies": [
+    "imgui",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    }
+  ]
+}

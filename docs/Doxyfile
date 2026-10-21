@@ -1,0 +1,36 @@
+PROJECT_NAME           = "Sprout Engine"
+PROJECT_BRIEF          = "学生向け 2D ゲームエンジン"
+PROJECT_NUMBER         = 0.1.0
+OUTPUT_DIRECTORY       = build/docs
+OUTPUT_LANGUAGE        = Japanese
+INPUT_ENCODING         = UTF-8
+
+INPUT                  = engine/include/sprout \
+                         engine/include_editor/sprout
+FILE_PATTERNS          = *.hpp *.h
+RECURSIVE              = YES
+EXCLUDE_PATTERNS       = */detail/*
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_LATEX         = NO
+GENERATE_TREEVIEW      = YES
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = NO
+
+EXTRACT_ALL            = NO
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = NO
+HIDE_UNDOC_MEMBERS     = NO
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+WARN_AS_ERROR          = YES
+QUIET                  = NO
+
+JAVADOC_AUTOBRIEF      = YES
+QT_AUTOBRIEF           = NO
+MARKDOWN_SUPPORT       = YES
+TAB_SIZE               = 4
+SORT_MEMBER_DOCS       = YES
+SORT_BRIEF_DOCS        = YES
+HAVE_DOT               = NO

@@ -1,0 +1,20 @@
+#pragma once
+
+namespace sprout {
+
+/// エンジンのメジャーバージョン。
+inline constexpr int kVersionMajor = @SPROUT_VERSION_MAJOR@;
+
+/// エンジンのマイナーバージョン。
+inline constexpr int kVersionMinor = @SPROUT_VERSION_MINOR@;
+
+/// エンジンのパッチバージョン。
+inline constexpr int kVersionPatch = @SPROUT_VERSION_PATCH@;
+
+/// "major.minor.patch" 形式のバージョン文字列。
+inline constexpr const char* kVersionString = "@SPROUT_VERSION@";
+
+/// ビルド元の git ハッシュ。取得できない場合は "unknown"。
+inline constexpr const char* kGitHash = "@SPROUT_GIT_HASH@";
+
+}  // namespace sprout

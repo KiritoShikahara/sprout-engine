@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - "001-*"
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-2022:
+    name: Build / Test / Lint / ASan
+    runs-on: windows-2022
+    timeout-minutes: 90
+    env:
+      VCPKG_ROOT: C:/vcpkg
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake --preset ci
+
+      - name: Build
+        run: cmake --build --preset ci-debug
+
+      - name: Test
+        run: ctest --preset ci-debug
+
+      - name: Lint
+        run: cmake --build --preset ci-debug --target sprout_lint
+
+      - name: Configure AddressSanitizer
+        run: cmake --preset asan
+
+      - name: Build AddressSanitizer
+        run: cmake --build --preset asan-debug
+
+      - name: Test AddressSanitizer
+        run: ctest --preset asan-debug

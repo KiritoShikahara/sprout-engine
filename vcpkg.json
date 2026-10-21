@@ -1,0 +1,40 @@
+{
+  "name": "sprout-engine",
+  "version-string": "0.1.0",
+  "description": "学生向け 2D ゲームエンジン Sprout Engine の依存関係",
+  "builtin-baseline": "74e6536215718009aae747d86d84b78376bf9e09",
+  "dependencies": [
+    {
+      "name": "sfml",
+      "features": [
+        "audio",
+        "graphics",
+        "window"
+      ]
+    },
+    "box2d",
+    {
+      "name": "imgui",
+      "features": [
+        "docking-experimental"
+      ]
+    },
+    "imgui-sfml",
+    "nlohmann-json",
+    "zstd",
+    "xxhash",
+    "efsw",
+    "nativefiledialog-extended",
+    "tracy",
+    "gtest"
+  ],
+  "features": {
+    "editor": {
+      "description": "エディタ専用の依存関係（imnodes / ImGui Test Engine）",
+      "dependencies": [
+        "imnodes",
+        "imgui-test-engine"
+      ]
+    }
+  }
+}

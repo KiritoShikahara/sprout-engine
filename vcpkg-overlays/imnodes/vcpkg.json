@@ -1,0 +1,14 @@
+{
+  "name": "imnodes",
+  "version-string": "0.5",
+  "description": "Minimal node editor add-on for Dear ImGui",
+  "homepage": "https://github.com/Nelarius/imnodes",
+  "license": "MIT",
+  "dependencies": [
+    "imgui",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    }
+  ]
+}

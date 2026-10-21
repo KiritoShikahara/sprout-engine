@@ -1,0 +1,38 @@
+name: CI (VS2026 self-hosted)
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - "001-*"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-vs2026:
+    name: Build / Test / Lint (VS2026)
+    runs-on:
+      - self-hosted
+      - windows
+      - vs2026
+      - x64
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake --preset vs2026
+
+      - name: Build
+        run: cmake --build --preset vs2026-debug
+
+      - name: Test
+        run: ctest --preset vs2026-debug
+
+      - name: Lint
+        run: cmake --build --preset vs2026-debug --target sprout_lint
