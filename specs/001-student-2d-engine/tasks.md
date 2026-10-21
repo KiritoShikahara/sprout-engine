@@ -1,3 +1,5 @@
+> ⚠️ **OUTDATED**: 本 tasks は spec v1 に基づく。plan 再生成後に `/speckit-tasks` で再生成すること。
+
 # Tasks: 学生向け 2D ゲームエンジン + エディタ（Sprout Engine）
 
 **Input**: `specs/001-student-2d-engine/` の plan.md, spec.md, research.md, data-model.md, contracts/

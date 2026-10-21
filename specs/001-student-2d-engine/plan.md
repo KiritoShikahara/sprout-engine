@@ -1,3 +1,5 @@
+> ⚠️ **OUTDATED**: 本 plan は spec v1 に基づく。spec v2（商業水準）に合わせて `/speckit-plan` で再生成すること。
+
 # Implementation Plan: 学生向け 2D ゲームエンジン + エディタ（Sprout Engine）
 
 **Branch**: `001-student-2d-engine` | **Date**: 2026-10-21 | **Spec**: [spec.md](spec.md)
