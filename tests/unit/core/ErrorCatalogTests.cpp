@@ -81,7 +81,7 @@ public:
 TEST(ErrorCatalogTests, AllCodes_HaveJapaneseWhatWhereAndHowToFix)
 {
     for (const ErrorCode code : kAllCodes) {
-        SCOPED_TRACE(sprout::errorCodeName(code));
+        SCOPED_TRACE(std::string{sprout::errorCodeName(code)});
         EXPECT_TRUE(sprout::isKnownErrorCode(code));
 
         const ErrorInfo& info = sprout::errorInfo(code);
@@ -171,8 +171,9 @@ TEST(AssertTests, AssertWithTrueCondition_DoesNotCallHandler)
 {
     ScopedAssertHandler guard{captureAssert};
     gCaptured = {};
+    volatile bool condition = true;
 
-    SPROUT_ASSERT(2 + 2 == 4);
+    SPROUT_ASSERT(condition);
 
     EXPECT_FALSE(gCaptured.called);
 }
@@ -181,12 +182,13 @@ TEST(AssertTests, AssertWithFalseCondition_CallsHandlerWithContext)
 {
     ScopedAssertHandler guard{captureAssert};
     gCaptured = {};
+    volatile int value = 1;
 
     const int expectedLine = __LINE__ + 1;
-    SPROUT_ASSERT(1 == 2);
+    SPROUT_ASSERT(value == 2);
 
     EXPECT_TRUE(gCaptured.called);
-    EXPECT_EQ(gCaptured.expression, "1 == 2");
+    EXPECT_EQ(gCaptured.expression, "value == 2");
     EXPECT_EQ(gCaptured.line, expectedLine);
     EXPECT_NE(gCaptured.file.find("ErrorCatalogTests.cpp"), std::string::npos);
     EXPECT_EQ(gCaptured.message, "条件が満たされませんでした");
@@ -199,12 +201,13 @@ TEST(AssertTests, AssertMsg_PassesCustomJapaneseMessage)
     ScopedAssertHandler guard{captureAssert};
     gCaptured = {};
     const std::string message = "体力が 0 以下です";
+    volatile bool alive = false;
 
-    SPROUT_ASSERT_MSG(false, message);
+    SPROUT_ASSERT_MSG(alive, message);
 
     EXPECT_TRUE(gCaptured.called);
     EXPECT_EQ(gCaptured.message, message);
-    EXPECT_EQ(gCaptured.expression, "false");
+    EXPECT_EQ(gCaptured.expression, "alive");
     EXPECT_EQ(gCaptured.code, ErrorCode::InvalidState);
 }
 
@@ -223,7 +226,7 @@ TEST(AssertTests, FormatAssertFailure_ContainsJapaneseErrorLocationAndCondition)
     EXPECT_NE(text.find("詳細: 体力が 0 以下です"), std::string::npos);
 }
 
-TEST(AssertTests, ReportAssertFailure_WithoutHandlerIsNotCalledHere)
+TEST(AssertTests, ReportAssertFailure_WithHandler_ReportsFailure)
 {
     ScopedAssertHandler guard{captureAssert};
     gCaptured = {};

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include <limits>
 #include <numbers>
 
 namespace sprout {
@@ -65,7 +66,7 @@ struct Degrees {
     /// @return 等価な角度（ラジアン）。
     constexpr Radians toRadians() const noexcept
     {
-        return Radians{value * (std::numbers::pi_v<float> / 180.0F)};
+        return Radians{static_cast<float>(static_cast<double>(value) * (std::numbers::pi_v<double> / 180.0))};
     }
 
     /// 同じ値か判定する。
@@ -76,7 +77,7 @@ struct Degrees {
 
 constexpr Degrees Radians::toDegrees() const noexcept
 {
-    return Degrees{value * (180.0F / std::numbers::pi_v<float>)};
+    return Degrees{static_cast<float>(static_cast<double>(value) * (180.0 / std::numbers::pi_v<double>))};
 }
 
 /// @brief 角度。内部表現はラジアン。
@@ -184,11 +185,17 @@ public:
     /// @return 等価な角度。
     Angle wrapped() const noexcept
     {
-        float result = std::fmod(m_radians.value, kTwoPi);
-        if (result < 0.0F) {
-            result += kTwoPi;
+        constexpr double kTwoPiDouble = 2.0 * std::numbers::pi_v<double>;
+        constexpr double kZeroTolerance = std::numeric_limits<float>::epsilon() * kTwoPiDouble;
+
+        double result = std::fmod(static_cast<double>(m_radians.value), kTwoPiDouble);
+        if (result < 0.0) {
+            result += kTwoPiDouble;
         }
-        return Angle{Radians{result}};
+        if (result < kZeroTolerance) {
+            result = 0.0;
+        }
+        return Angle{Radians{static_cast<float>(result)}};
     }
 
     /// 加算して自身を更新する。
