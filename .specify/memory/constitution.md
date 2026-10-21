@@ -26,7 +26,7 @@
 | 定数 / `constexpr` | `k` + `PascalCase` | `kMaxObjects` |
 | enum 値 | `PascalCase`（`k` は付けない） | `Key::Space` |
 | テンプレート引数 | `PascalCase`、単一なら `T` | `TComponent` |
-| マクロ | `SPROUT_` + `UPPER_SNAKE`、原則使用禁止 | `SPROUT_ASSERT`、公開は `SPROUT_REGISTER_BEHAVIOR` のみ |
+| マクロ | `SPROUT_` + `UPPER_SNAKE`、原則使用禁止 | `SPROUT_ASSERT`、公開は `SPROUT_BEHAVIOR` / `SPROUT_PROPERTY` / `SPROUT_GAME_MODULE` のみ（エディタ拡張用は `SPROUT_EDITOR_` 接頭辞） |
 | ファイル | 型名と同一 `PascalCase.hpp/.cpp`、1 ファイル 1 主要型 | `GameObject.hpp` |
 | テスト | `<対象>Tests.cpp`、テスト名 `Method_Condition_Expected` | `Transform_SetParent_UpdatesWorldPosition` |
 
@@ -58,4 +58,4 @@
 - 本規約は他の全ての慣習に優先する。変更には理由と移行方針を記した PR を要する。
 - レビューでは命名規則と依存方向を必ず確認する。
 
-**Version**: 1.0.0 | **Ratified**: 2026-10-21 | **Last Amended**: 2026-10-21
+**Version**: 1.1.0 | **Ratified**: 2026-10-21 | **Last Amended**: 2026-10-21（1.1.0: 公開マクロを 3 種に拡大。plan v2 / research R18）

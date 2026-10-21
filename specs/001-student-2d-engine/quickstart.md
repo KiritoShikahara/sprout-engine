@@ -1,27 +1,32 @@
-# Quickstart: 検証手順
+# Quickstart: 検証手順（spec v2）
 
 ## 前提
-- Visual Studio 2022（17.10+）または Visual Studio 2026、「C++ によるデスクトップ開発」
-- vcpkg を clone し環境変数 `VCPKG_ROOT` を設定
-- CMake 4.2+（VS 同梱版で可）
+- Visual Studio 2022（17.10+）または 2026、「C++ によるデスクトップ開発」
+- `VCPKG_ROOT` 設定済み、CMake 4.2+
 
-## ビルドとテスト
+## エンジンのビルドと全テスト
 ```powershell
-cmake --preset vs2022        # VS2026 は --preset vs2026
+cmake --preset vs2022                       # or vs2026
 cmake --build --preset vs2022-debug
-ctest --preset vs2022-debug   # 全テスト成功が期待値
-cmake --build --preset vs2022-debug --target sprout_lint   # 命名規則違反 0 件
+ctest --preset vs2022-debug                 # unit / integration / determinism / editor_e2e
+cmake --build --preset vs2022-debug --target sprout_lint   # 命名規則違反 0
+ctest --preset vs2022-release -L perf       # SC-005 ベンチ
 ```
 
-## シナリオ
-| # | 手順 | 期待結果 | 対応 |
+## シナリオ（各 US の受入確認）
+| # | 手順 | 期待 | US |
 |---|---|---|---|
-| 1 | `HelloSprout.exe` を起動し矢印キー | スプライトが移動 | US1 |
-| 2 | `assets/player.png` を削除して起動 | 代替画像 + 日本語エラーログ、クラッシュなし | US1 Edge |
-| 3 | `SproutEditor.exe` でオブジェクト 3 つ配置→保存→再起動→読み込み | 同じ配置 | US2 |
-| 4 | エディタで移動→Ctrl+Z | 元の位置 | US2 |
-| 5 | 再生→オブジェクトが動く→停止 | 再生前の位置に戻る | US3 |
-| 6 | `TileCollector.exe` で壁へ移動 | 通り抜けない、アイテム取得でログ | US4 |
-| 7 | 任意キーで効果音、起動時 BGM | 音が鳴る | US5 |
+| 1 | `samples/01_HelloSprout` を実行し WASD | 移動。画像削除時は代替 + 日本語エラー | 1 |
+| 2 | `SproutEditor` → ハブで 2DEmpty 作成 → 3 体配置 → 保存 → 再起動 | 同一状態、Undo 200 手 | 2 |
+| 3 | VS で Behavior 追加→ビルド（エディタ起動のまま）→再生→停止 | 10 秒以内に反映、停止で復元 | 3 |
+| 4 | Behavior 内で null 参照をわざと起こす | エディタは落ちず再生停止・復元 | 3 |
+| 5 | `03_Platformer` を開き再生 | 待機/歩き/ジャンプ遷移、壁で停止、コイン取得 | 4,5,7 |
+| 6 | 敵 Prefab の速度変更 | 全インスタンス反映、個別上書き保持 | 6 |
+| 7 | `04_Shooter` をタイトルから最後まで | 遷移・スコア引継ぎ・UI パッド操作・BGM クロスフェード | 8,9,10 |
+| 8 | 設定画面でキー変更・言語切替→再起動 | 復元される | 10,11 |
+| 9 | ビルド設定→書き出し→別 PC（VS 無し）で起動 | 起動する | 12 |
+| 10 | 再生中にプロファイラを開く | システム別時間・描画呼出し数が見える | 13 |
+| 11 | `sprout build` / `sprout export` をコマンドラインで | エディタ無しで成功 | 14 |
+| 12 | カスタムインスペクタを登録 | 独自 UI 表示 | 15 |
 
-公開 API は [contracts/public-api.md](contracts/public-api.md)、データは [data-model.md](data-model.md) を参照。
+参照: [contracts/](contracts/) / [data-model.md](data-model.md) / [er-diagram.md](er-diagram.md)
