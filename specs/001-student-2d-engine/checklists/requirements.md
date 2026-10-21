@@ -34,4 +34,4 @@
 - v2（商業水準へ全面改訂、2026-10-21）で再検証し全項目合格。
 - SFML / ImGui / C++ は利用者指定の制約として Clarifications・Assumptions・Dependencies にのみ記載。
 - データ構造は er-diagram.md（Mermaid 7 図、mmdc で描画検証済み）。
-- plan v2 生成済み。tasks.md は v1 のため `/speckit-tasks` で再生成が必要。
+- plan v2 / tasks v2（436 件）生成済み。
