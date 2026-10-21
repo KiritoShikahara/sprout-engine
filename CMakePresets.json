@@ -31,6 +31,12 @@
       }
     },
     {
+      "name": "vs2022-debug",
+      "displayName": "Visual Studio 2022 (x64, Debug)",
+      "inherits": "vs2022",
+      "binaryDir": "${sourceDir}/build/vs2022"
+    },
+    {
       "name": "vs2026",
       "displayName": "Visual Studio 2026 (x64)",
       "inherits": "base",
